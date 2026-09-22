@@ -4,17 +4,21 @@ Laravel 13 + Blade + Laravel Fortify, designed for PHP 8.3 and MySQL 8.4 on shar
 
 **Deployment to `playground.illunaai.de`: [Netcup/Plesk setup guide](docs/DEPLOYMENT_PLAYGROUND.md).** The entire project goes in the private project directory; the domain serves **only `public/`**.
 
+**Closed beta setup and 404 page: [Update instructions](docs/CLOSED_BETA.md).** Add the invitation code to the existing server configuration after uploading this update.
+
 ## Included
 
 - Existing investor landing page and interactive demos, moved into `resources/views/landing.blade.php` and `public/assets/landing.*`.
 - Registration, login/logout, signed email verification, password reset and login/account-action rate limits through Laravel Fortify.
+- Closed beta registration with a server-side invitation code check; missing configuration blocks new sign-ups.
+- Custom Illuna 404 page with links back to the website and dashboard.
 - Dashboard protected by login and verified email.
 - Profile/name/email editing, with current-password confirmation and reverification for email changes.
 - Password changes, invalidation of other database sessions and remember tokens.
 - Account-specific pages, escaped user content, CSRF protection and non-cacheable responses.
 - Usage and billing pages with explicit empty/preview states. **No invented usage, invoices or payment processing.**
 
-The original root `index.html` is retained as the legacy static snapshot for the existing website. The Laravel application renders the Blade version. Make future landing-page changes there. Do not point a Laravel deployment at the repository root.
+The Laravel application renders the Blade landing page. Make future landing-page changes in `resources/views/landing.blade.php`. Do not point a Laravel deployment at the repository root.
 
 ## Local development
 
@@ -30,6 +34,8 @@ php artisan serve
 ```
 
 Open `http://localhost:8000`. Local email uses the log transport: the verification/reset link appears in the **private** `storage/logs/laravel.log`. For the playground configure real SMTP instead. Verification is never bypassed.
+
+Set `ILLUNA_BETA_INVITE_CODE` in your local `.env` before testing registration. No working invitation code is shipped with the application.
 
 ```sh
 composer test
@@ -58,6 +64,7 @@ The test suite uses an isolated in-memory SQLite database by default. GitHub Act
 - `.env.example`: local development.
 - `.env.playground.example`: playground template with database host/name and placeholders for credentials.
 - `ILLUNA_REGISTRATION_ENABLED`: set to `true` only after email delivery is working. Run `php artisan optimize:clear` and `php artisan optimize` after changing this flag, because routes and configuration can be cached.
+- `ILLUNA_BETA_INVITE_CODE`: a private, case-sensitive shared code (up to 128 characters, no surrounding whitespace). An empty value blocks new accounts even when registration is enabled. Use a randomly generated value of at least 20 characters; share it only with beta testers. Never commit it. Change it and rebuild the configuration cache to revoke the old code. This is a reusable group invitation, not a per-person allowlist or a one-time token; recipients can forward it. Existing accounts and email verification are unaffected. The code is not included in HTML, user records or flashed form input. Registration attempts are limited to five per minute per IP.
 - `ILLUNA_NOINDEX=true`: adds a noindex response header and a disallow-all robots response. This discourages indexing; it is **not** access control. Add Plesk directory/password protection if the entire playground should be private.
 - Sessions and cache use MySQL; mail is synchronous. No recurring cron task is needed at this stage.
 - `APP_KEY`, database/mail credentials and future API secrets belong only in the server's `.env`. Never commit `.env`, `vendor/`, generated logs or real database files.

@@ -1,10 +1,12 @@
 @extends('layouts.auth')
 @section('title', 'Make yourself at home')
-@section('intro', 'Create your Illuna account to get started.')
+@section('intro', 'A little invite. A whole new experience. Join the Illuna closed beta.')
 @section('content')
     <form method="POST" action="{{ route('register.store') }}" class="form-stack">
         @csrf
-        <x-input name="name" label="Your name" :value="old('name')" autocomplete="name" required autofocus maxlength="100" />
+        <x-input name="invitation_code" label="Invitation code" type="password" autocomplete="off" required autofocus maxlength="128" aria-describedby="invitation-help" />
+        <small id="invitation-help" class="helper">Enter the code from your invitation. Codes are case-sensitive.</small>
+        <x-input name="name" label="Your name" :value="old('name')" autocomplete="name" required maxlength="100" />
         <x-input name="email" label="Email address" type="email" :value="old('email')" autocomplete="username" required maxlength="254" />
         <x-input name="password" label="Password" type="password" autocomplete="new-password" required minlength="12" maxlength="72" aria-describedby="password-help" />
         <small id="password-help" class="helper">Use 12–72 characters. A memorable passphrase works well.</small>

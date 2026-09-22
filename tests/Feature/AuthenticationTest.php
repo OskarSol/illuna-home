@@ -21,6 +21,7 @@ class AuthenticationTest extends TestCase
         Notification::fake();
         $this->post('/register', [
             'name' => 'Oskar', 'email' => 'OSKAR@example.com',
+            'invitation_code' => 'testing-invite-only',
             'password' => 'a-long-test-passphrase', 'password_confirmation' => 'a-long-test-passphrase',
             'email_verified_at' => now(), 'id' => 9000,
         ])->assertRedirect('/dashboard');
@@ -40,6 +41,7 @@ class AuthenticationTest extends TestCase
         User::factory()->create(['email' => 'taken@example.com']);
         $this->post('/register', [
             'name' => 'Another person', 'email' => 'TAKEN@example.com',
+            'invitation_code' => 'testing-invite-only',
             'password' => 'short', 'password_confirmation' => 'different',
         ])->assertSessionHasErrors(['email', 'password']);
         $this->assertDatabaseCount('users', 1);

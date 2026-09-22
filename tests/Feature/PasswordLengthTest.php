@@ -14,6 +14,7 @@ class PasswordLengthTest extends TestCase
         $password = str_repeat('🔒', 20);
         $this->post('/register', [
             'name' => 'Test', 'email' => 'unicode@example.com',
+            'invitation_code' => 'testing-invite-only',
             'password' => $password, 'password_confirmation' => $password,
         ])->assertSessionHasErrors('password');
         $this->assertDatabaseCount('users', 0);

@@ -19,6 +19,7 @@
         <env name="APP_KEY" value="base64:MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY="/>
         <env name="APP_URL" value="http://localhost"/>
         <env name="ILLUNA_REGISTRATION_ENABLED" value="true"/>
+        <env name="ILLUNA_BETA_INVITE_CODE" value="testing-invite-only" force="true"/>
         <env name="ILLUNA_NOINDEX" value="true"/>
         <env name="APP_MAINTENANCE_DRIVER" value="file"/>
         <env name="BCRYPT_ROUNDS" value="4"/>

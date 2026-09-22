@@ -14,6 +14,22 @@ class CreateNewUser implements CreatesNewUsers
 
     public function create(array $input): User
     {
+        // Validate access before checking account details or creating a user.
+        Validator::make($input, [
+            'invitation_code' => [
+                'bail', 'required', 'string', 'max:128',
+                function (string $attribute, mixed $value, \Closure $fail): void {
+                    $expected = config('illuna.beta_invite_code');
+
+                    if (! is_string($expected) || trim($expected) === '' || ! hash_equals($expected, $value)) {
+                        $fail('This invitation code is invalid or no longer active.');
+                    }
+                },
+            ],
+        ], [
+            'invitation_code.required' => 'You need an invitation code to join the closed beta.',
+        ])->validate();
+
         $input['email'] = Str::lower(trim((string) ($input['email'] ?? '')));
         $input['name'] = trim((string) ($input['name'] ?? ''));
 
