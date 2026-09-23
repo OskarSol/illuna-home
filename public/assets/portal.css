@@ -973,3 +973,38 @@ input[type=checkbox] {
         transition:none!important;
     }
 }
+
+/* API access and plans share the existing portal surfaces. */
+.portal-content,.portal-main { min-width:0; }
+.api-key-card,.billing-note { padding:30px; margin-bottom:24px; }
+.api-key-card .section-heading { margin:0 0 14px; }
+.api-key-card > p,.billing-note p { font-size:.85rem; margin-top:13px; }
+.key-field { margin:24px 0 18px; }
+.key-field input { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:.85rem; }
+.key-actions { display:flex; gap:10px; margin-top:9px; }
+.personal-example { margin-top:22px; }
+.personal-example > summary { cursor:pointer; font-size:.9rem; color:var(--purple); padding:8px 0; }
+.personal-example[open] > summary { margin-bottom:16px; }
+.personal-example > summary:focus-visible { outline:3px solid #8d64e3; outline-offset:4px; }
+.plan-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+.plan-card { padding:30px; display:flex; flex-direction:column; min-width:0; }
+.plan-card.current-plan { border-color:#b599e5; background:linear-gradient(150deg,#f6f0ff,#fff 65%); }
+.plan-top { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; }
+.plan-price { font-size:3rem; color:var(--ink); letter-spacing:-.04em; line-height:1.1; margin:28px 0 20px; }
+.plan-price span { display:block; font-size:.8rem; letter-spacing:0; color:var(--muted); margin-top:10px; }
+.plan-card > p:not(.plan-price) { font-size:.9rem; }
+.plan-features { list-style:none; padding:0; margin:23px 0 27px; font-size:.85rem; }
+.plan-features li { padding:9px 0; border-bottom:1px solid var(--line); }
+.plan-card .button { margin-top:auto; width:100%; }
+.button:disabled { cursor:default; opacity:.7; }
+.usage-progress { margin-top:20px; }
+.usage-progress > div { display:flex; justify-content:space-between; gap:14px; font-size:.8rem; color:var(--muted); margin-bottom:10px; }
+.usage-progress progress { width:100%; height:10px; border:0; border-radius:20px; background:#e9e2f2; accent-color:var(--purple); overflow:hidden; display:block; }
+.usage-progress progress::-webkit-progress-bar { background:#e9e2f2; border-radius:20px; }
+.usage-progress progress::-webkit-progress-value { background:var(--purple); border-radius:20px; }
+.usage-progress progress::-moz-progress-bar { background:var(--purple); border-radius:20px; }
+.account-dates { display:flex; flex-wrap:wrap; gap:25px 55px; margin:26px 3px 0; font-size:.78rem; }
+.account-dates dt { color:var(--muted); margin-bottom:5px; }
+.account-dates dd { margin:0; }
+@media (max-width:900px) { .plan-grid { grid-template-columns:minmax(0,1fr); } }
+@media (max-width:600px) { .api-key-card,.billing-note,.plan-card { padding:23px; } .usage-progress > div { font-size:.72rem; } }
