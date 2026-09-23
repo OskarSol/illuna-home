@@ -4,6 +4,7 @@
             @case('verification-link-sent') A new verification link has been sent to your email address. @break
             @case('profile-information-updated') Your profile has been saved. @break
             @case('password-updated') Your password has been updated. Other sessions have been signed out. @break
+            @case('api-key-renewed') Your API key has been renewed. Replace the old key in your integrations. @break
             @default {{ session('status') }}
         @endswitch
     </div>

@@ -6,9 +6,11 @@ Laravel 13 + Blade + Laravel Fortify, designed for PHP 8.3 and MySQL 8.4 on shar
 
 **Closed beta setup and 404 page: [Update instructions](docs/CLOSED_BETA.md).** Add the invitation code to the existing server configuration after uploading this update.
 
+**Demo, API keys and plans: [Update instructions and integration notes](docs/DEMO_API_PLANS.md).** Run the new migration after deploying this update.
+
 ## Included
 
-- Product information page and interactive demos in `resources/views/landing.blade.php` and `public/assets/landing.*`.
+- Product information page with a static product preview; dedicated `/demo` page with appearance/language controls, a cards/table/guided layout demo and illustrative REST request/response examples.
 - Public documentation wiki at `/docs`: eight original product chapters, local illustrations, full-text search, chapter navigation and tables of contents. See [source and deployment notes](docs/PRODUCT_DOCUMENTATION.md).
 - Registration, login/logout, signed email verification, password reset and login/account-action rate limits through Laravel Fortify.
 - Closed beta registration with a server-side invitation code check; missing configuration blocks new sign-ups.
@@ -17,7 +19,8 @@ Laravel 13 + Blade + Laravel Fortify, designed for PHP 8.3 and MySQL 8.4 on shar
 - Profile/name/email editing, with current-password confirmation and reverification for email changes.
 - Password changes, invalidation of other database sessions and remember tokens.
 - Account-specific pages, escaped user content, CSRF protection and non-cacheable responses.
-- Usage and billing pages with explicit empty/preview states. **No invented usage, invoices or payment processing.**
+- Personal API access page with encrypted unique keys, current-password-protected renewal and account-specific cURL examples.
+- Registration and last-sign-in timestamps; Beta plan with 1 million total tokens and recorded usage. Usage-based billing (€10 per million tokens) is shown as coming soon. **Live API, usage collection and payment processing are not connected.**
 
 The Laravel application renders the Blade landing page. Make future landing-page changes in `resources/views/landing.blade.php`. Do not point a Laravel deployment at the repository root.
 
@@ -51,15 +54,18 @@ The test suite uses an isolated in-memory SQLite database by default. GitHub Act
 | URL | Access / purpose |
 | --- | --- |
 | `/` | Public landing page |
+| `/demo` | Public interactive demos and illustrative REST examples |
 | `/docs` | Public documentation overview and search |
 | `/docs/{slug}` | Product documentation chapter |
 | `/register` | Registration, when enabled |
 | `/login` | Login |
 | `/forgot-password` | Request a reset link |
 | `/email/verify` | Signed-in account awaiting verification |
-| `/dashboard` | Verified account; usage placeholder |
+| `/dashboard` | Verified account; recorded usage, plan and account dates |
+| `/api-key` | Verified account; personal API key and REST examples |
+| `/api-key/rotate` | POST only; renew own key with current password |
 | `/settings` | Verified account; profile and password forms |
-| `/billing` | Verified account; billing preview |
+| `/billing` | Verified account; Beta allowance and future usage-based plan |
 | `/up` | Framework health check; not a complete database/SMTP readiness check |
 
 ## Configuration
@@ -69,8 +75,9 @@ The test suite uses an isolated in-memory SQLite database by default. GitHub Act
 - `ILLUNA_REGISTRATION_ENABLED`: set to `true` only after email delivery is working. Run `php artisan optimize:clear` and `php artisan optimize` after changing this flag, because routes and configuration can be cached.
 - `ILLUNA_BETA_INVITE_CODE`: a private, case-sensitive shared code (up to 128 characters, no surrounding whitespace). An empty value blocks new accounts even when registration is enabled. Use a randomly generated value of at least 20 characters; share it only with beta testers. Never commit it. Change it and rebuild the configuration cache to revoke the old code. This is a reusable group invitation, not a per-person allowlist or a one-time token; recipients can forward it. Existing accounts and email verification are unaffected. The code is not included in HTML, user records or flashed form input. Registration attempts are limited to five per minute per IP.
 - `ILLUNA_NOINDEX=true`: adds a noindex response header and a disallow-all robots response. This discourages indexing; it is **not** access control. Add Plesk directory/password protection if the entire playground should be private.
+- `ILLUNA_API_URL`: optional full endpoint displayed in the illustrative REST examples. It defaults to `https://api.example.com/v1/adapt`; no requests are sent. Setting it does not connect the API.
 - Sessions and cache use MySQL; mail is synchronous. No recurring cron task is needed at this stage.
-- `APP_KEY`, database/mail credentials and future API secrets belong only in the server's `.env`. Never commit `.env`, `vendor/`, generated logs or real database files.
+- `APP_KEY`, database/mail credentials and API integration secrets belong only in the server's `.env`. Never commit `.env`, `vendor/`, generated logs or real database files.
 
 ## Next integrations
 

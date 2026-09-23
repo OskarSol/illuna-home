@@ -8,6 +8,7 @@
     <title>@yield('title') · Illuna</title>
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ asset('assets/portal.css') }}">
+    @stack('styles')
 </head>
 <body class="portal-body">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -16,8 +17,9 @@
         <span class="sidebar-label">YOUR WORKSPACE</span>
         <nav aria-label="Account navigation" class="portal-nav">
             <a href="{{ route('dashboard') }}" @if(request()->routeIs('dashboard')) aria-current="page" @endif><span aria-hidden="true">◫</span> Overview</a>
+            <a href="{{ route('api-key.show') }}" @if(request()->routeIs('api-key.*')) aria-current="page" @endif><span aria-hidden="true">⌘</span> API access</a>
             <a href="{{ route('settings') }}" @if(request()->routeIs('settings')) aria-current="page" @endif><span aria-hidden="true">⚙</span> Account settings</a>
-            <a href="{{ route('billing') }}" @if(request()->routeIs('billing')) aria-current="page" @endif><span aria-hidden="true">▤</span> Billing</a>
+            <a href="{{ route('billing') }}" @if(request()->routeIs('billing')) aria-current="page" @endif><span aria-hidden="true">▤</span> Plans &amp; billing</a>
         </nav>
         <div class="sidebar-bottom">
             <p>Software,<br><strong>more personal.</strong></p>
@@ -39,5 +41,6 @@
         </main>
         <footer class="portal-footer">© {{ date('Y') }} Illuna <span>Your space to make it yours.</span></footer>
     </div>
+    @stack('scripts')
 </body>
 </html>
