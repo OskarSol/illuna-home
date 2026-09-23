@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\DocumentationController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'landing')->name('home');
+
+Route::get('/docs', [DocumentationController::class, 'index'])->name('docs.index');
+Route::get('/docs/{page}', [DocumentationController::class, 'show'])->where('page', '[a-z0-9-]+')->name('docs.show');
 
 Route::middleware(['auth', 'verified', 'auth.session'])->group(function (): void {
     Route::view('/dashboard', 'portal.dashboard')->name('dashboard');

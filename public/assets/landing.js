@@ -1,9 +1,6 @@
 (() => {
       "use strict";
 
-      // Optional launch configuration: add only a verified https: or mailto: URL.
-      // Empty keeps the honest contact placeholder and GitHub fallback.
-      const CONTACT_URL = "";
       const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
       const arrow = '<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>';
       // Prepared, local-only examples. No model call or real translation service is implied.
@@ -326,26 +323,6 @@
         if (!scrollQueued) { scrollQueued = true; requestAnimationFrame(syncHeader); }
       }, { passive: true });
       syncHeader();
-
-      const contactLink = document.getElementById("contact-cta");
-      const contactDialog = document.getElementById("contact-dialog");
-      if (/^(https:\/\/|mailto:)/i.test(CONTACT_URL)) {
-        contactLink.href = CONTACT_URL;
-        document.getElementById("contact-details").hidden = true;
-      } else if (typeof contactDialog.showModal === "function") {
-        contactLink.setAttribute("aria-haspopup", "dialog");
-        contactLink.addEventListener("click", event => {
-          event.preventDefault();
-          if (!contactDialog.open) contactDialog.showModal();
-        });
-      }
-      document.getElementById("dialog-close").addEventListener("click", () => contactDialog.close());
-      contactDialog.addEventListener("close", () => contactLink.focus({ preventScroll: true }));
-      contactDialog.addEventListener("click", event => {
-        if (event.target !== contactDialog) return;
-        const box = contactDialog.getBoundingClientRect();
-        if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) contactDialog.close();
-      });
 
       renderHero(false);
       renderDemo("", false);

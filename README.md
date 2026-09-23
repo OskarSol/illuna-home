@@ -8,7 +8,8 @@ Laravel 13 + Blade + Laravel Fortify, designed for PHP 8.3 and MySQL 8.4 on shar
 
 ## Included
 
-- Existing investor landing page and interactive demos, moved into `resources/views/landing.blade.php` and `public/assets/landing.*`.
+- Product information page and interactive demos in `resources/views/landing.blade.php` and `public/assets/landing.*`.
+- Public documentation wiki at `/docs`: eight original product chapters, local illustrations, full-text search, chapter navigation and tables of contents. See [source and deployment notes](docs/PRODUCT_DOCUMENTATION.md).
 - Registration, login/logout, signed email verification, password reset and login/account-action rate limits through Laravel Fortify.
 - Closed beta registration with a server-side invitation code check; missing configuration blocks new sign-ups.
 - Custom Illuna 404 page with links back to the website and dashboard.
@@ -50,6 +51,8 @@ The test suite uses an isolated in-memory SQLite database by default. GitHub Act
 | URL | Access / purpose |
 | --- | --- |
 | `/` | Public landing page |
+| `/docs` | Public documentation overview and search |
+| `/docs/{slug}` | Product documentation chapter |
 | `/register` | Registration, when enabled |
 | `/login` | Login |
 | `/forgot-password` | Request a reset link |

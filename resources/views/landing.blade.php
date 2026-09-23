@@ -20,7 +20,7 @@
 </head>
 <body>
   <!-- Source: OskarSol/illuna, inspected at 9df9cd186b64b70bc029bf233efd8b20fbf6e78c.
-       Content follows README and docs/01,02,03,05,06,07,08,09.
+       Content follows the product concepts and documentation.
        Demo fixtures illustrate the documented model; they do not call an Illuna service. -->
   <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
@@ -46,9 +46,8 @@
       <a class="brand" href="#top" aria-label="Illuna home"><svg class="brand-mark" aria-hidden="true"><use href="#i-mark"/></svg>illuna</a>
       <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu<svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
       <div class="nav-links" id="nav-links">
-        <a href="#vision">Vision</a><a href="#how-it-works">How it works</a><a href="#platform">Platform</a><a href="#opportunity">Opportunity</a>
-        <a href="https://github.com/OskarSol/illuna" target="_blank" rel="noopener noreferrer" aria-label="Illuna on GitHub, opens in a new tab">GitHub ↗</a>
-        <a href="#contact">Let’s talk</a>
+        <a href="#vision">Vision</a><a href="#how-it-works">How it works</a><a href="#platform">Platform</a><a href="{{ route('docs.index') }}">Documentation</a>
+        <a href="#demo">Try the demo</a>
         @auth
           <a class="nav-cta" href="{{ route('dashboard') }}">My account</a>
         @else
@@ -65,7 +64,7 @@
             <p class="eyebrow">Software, made personal.</p>
             <h1 id="hero-title">Every App Should Feel<br>Like It Was <span>Made for You</span></h1>
             <p class="lead">Your style. Your language. Your way of moving through the world. Illuna imagines software that adapts to all of it.</p>
-            <div class="actions"><a class="button primary" href="#demo">Explore Illuna<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="button" href="https://github.com/OskarSol/illuna" target="_blank" rel="noopener noreferrer">View on GitHub<svg class="icon" aria-hidden="true"><use href="#i-up"/></svg><span class="sr-only"> (opens in a new tab)</span></a></div>
+            <div class="actions"><a class="button primary" href="#demo">Explore Illuna<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="button" href="{{ route('docs.index') }}">Read the documentation<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
             <p class="stage-note">Now prototyping. Turning the vision into working experiences.</p>
           </div>
           <figure class="hero-visual" id="hero-visual">
@@ -138,7 +137,7 @@
       </div>
       <details class="under-hood reveal"><summary>A closer look <span>The architecture behind the experience</span></summary>
         <div class="components"><div><b>Interaction Gateway</b><p>Normalizes input and app state.</p></div><div><b>Intent Classifier</b><p>Turns language into structured intent.</p></div><div><b>Context Engine</b><p>Resolves the relevant product context.</p></div><div><b>Personalization Engine</b><p>Evaluates signals, rules and consent.</p></div><div><b>Preference Memory</b><p>Stores meaningful, scoped preferences.</p></div><div><b>Adaptation Engine</b><p>Translates decisions into allowed changes.</p></div><div><b>Application Runtime</b><p>Renders approved states and runs workflows.</p></div><div><b>Domain Services</b><p>Own trusted data and business operations.</p></div></div>
-        <p class="small">A chat or standard app interface sits above these layers. Product rules inform decisions and remain enforced at execution. <a class="text-link" href="https://github.com/OskarSol/illuna/blob/main/docs/03-reference-architecture.md" target="_blank" rel="noopener noreferrer">Read the architecture <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></p>
+        <p class="small">A chat or standard app interface sits above these layers. Product rules inform decisions and remain enforced at execution. <a class="text-link" href="{{ route('docs.show', 'reference-architecture') }}">Read the architecture <span aria-hidden="true">→</span></a></p>
       </details>
     </section>
 
@@ -218,21 +217,17 @@
       </div>
     </section>
 
-    <section class="section wrap" id="opportunity" aria-labelledby="why-now-title">
-      <div class="section-head reveal"><div><p class="eyebrow">Why now</p><h2 id="why-now-title">People expect more<br>from software.</h2></div><p>Understanding a request is only the beginning. The opportunity is to make the product respond.</p></div>
-      <div class="thesis-grid reveal"><article class="thesis"><span class="number">Understanding</span><h3>Natural language.<br>Real intent.</h3><p>Language models make requests like “make this simpler” understandable to software.</p></article><article class="thesis"><span class="number">Expectation</span><h3>Personal support.<br>Higher expectations.</h3><p>AI assistants make personal support feel natural. Applications can bring that feeling into everyday tasks.</p></article><article class="thesis"><span class="number">Trust</span><h3>More freedom.<br>Clear boundaries.</h3><p>Product teams need a dependable way to adapt, while keeping people and essential rules in control.</p></article></div>
-      <p class="opportunity-line reveal">If personal experiences become an everyday expectation, the layer behind them could become part of everyday software.</p>
-    </section>
+
 
     <section class="section wrap" aria-labelledby="moat-title">
-      <div class="section-head reveal"><div><p class="eyebrow">Why Illuna</p><h2 id="moat-title">Built around trust.<br>Designed to grow.</h2></div><p>The opportunity is to make personal experiences dependable across products. Long-term value will depend on execution and adoption.</p></div>
+      <div class="section-head reveal"><div><p class="eyebrow">Why Illuna</p><h2 id="moat-title">Built around trust.<br>Designed for people.</h2></div><p>Illuna separates understanding, decisions and execution so product teams can make adaptation predictable, explainable and reversible.</p></div>
       <div class="moat-grid reveal"><article class="moat-item"><span>Architecture</span><h3>Thoughtful by design.</h3><p>Understanding, decision-making and action have distinct roles, so each part can be checked and improved.</p></article><article class="moat-item"><span>Control</span><h3>Boundaries that hold.</h3><p>The product team decides what can change and what must stay protected.</p></article><article class="moat-item"><span>Memory</span><h3>Context worth remembering.</h3><p>Relevant preferences could spare people from repeating themselves, with control over what is remembered.</p></article><article class="moat-item"><span>Integration</span><h3>Less work, reused.</h3><p>Shared tools could help teams add personal experiences without solving the same problems again.</p></article><article class="moat-item"><span>Reach</span><h3>A model that travels.</h3><p>A product keeps its own expertise. Illuna’s adaptation model could support many different kinds of application.</p></article><article class="moat-item"><span>Understanding</span><h3>Changes you can explain.</h3><p>Understanding why an experience changed is essential to making it better.</p></article></div>
       <div class="insight reveal"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg><div><h3>Every preference could teach the product something.</h3><p>With consent and careful aggregation, repeated requests could help teams see where people struggle and what deserves to improve.</p></div></div>
     </section>
 
     <section class="section wrap" aria-labelledby="ecosystem-title">
       <div class="section-head reveal"><div><p class="eyebrow">A world of possibilities</p><h2 id="ecosystem-title">One idea.<br>Many possibilities.</h2></div><p>GardenMate is the first documented example. Other scenarios explore how the same idea could fit different parts of life.</p></div>
-      <div class="ecosystem-grid"><article class="garden-example reveal"><span class="pill accent">The first example</span><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg><h3>GardenMate</h3><p>A gardening companion that explores how an app could fit your knowledge, language, style and everyday needs.</p><blockquote class="example-quote">“I am new to gardening and only have 20 minutes per week.”</blockquote><p class="small">Guidance is one dimension. This prototype also explores voice, language, appearance and comfort around the same garden tasks.</p><a class="text-link" href="https://github.com/OskarSol/illuna/tree/main/examples/gardenplaner_claude_react" target="_blank" rel="noopener noreferrer">Explore the garden planner experiment <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></article>
+      <div class="ecosystem-grid"><article class="garden-example reveal"><span class="pill accent">The first example</span><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg><h3>GardenMate</h3><p>A gardening companion that explores how an app could fit your knowledge, language, style and everyday needs.</p><blockquote class="example-quote">“I am new to gardening and only have 20 minutes per week.”</blockquote><p class="small">Guidance is one dimension. This prototype also explores voice, language, appearance and comfort around the same garden tasks.</p><a class="text-link" href="{{ route('docs.show', 'examples-and-implementation') }}">Explore the product examples <span aria-hidden="true">→</span></a></article>
         <div class="domain-grid reveal"><article class="domain"><span class="meta">A possible application</span><h3>Finance</h3><p>Concise decision views or detailed audit trails.</p></article><article class="domain"><span class="meta">A possible application</span><h3>Education</h3><p>Explanation pace, visual density and difficulty matched to learner signals.</p></article><article class="domain"><span class="meta">A possible application</span><h3>Health routines</h3><p>Tone and reminders that respond to motivation and context.</p></article><article class="domain"><span class="meta">A possible application</span><h3>Team productivity</h3><p>Guidance, summaries and notification intensity shaped by role and workload.</p></article></div>
       </div>
     </section>
@@ -241,23 +236,18 @@
       <div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">Where we are</p><h2 id="roadmap-title">From vision<br>to working prototypes.</h2></div><p>Illuna is in the prototyping phase. We are developing and testing the first experiences, building on the public architecture and learning what makes adaptation useful.</p></div>
         <ol class="timeline reveal"><li class="milestone completed"><span class="pill">Completed</span><h3>Concept</h3><p>The foundation: product vision, reference architecture and initial interface patterns.</p></li><li class="milestone current"><span class="pill accent">Today</span><h3>Prototyping</h3><p>Developing the first flows, exploring intent understanding and testing how approved adaptations feel in practice.</p></li><li class="milestone"><span class="pill">Planned</span><h3>Pilot</h3><p>Learn with a small group of users. See which changes help, which get undone and what earns trust.</p></li><li class="milestone"><span class="pill">Planned</span><h3>Production readiness</h3><p>Strengthen product boundaries and integrations. Give people clear ways to inspect, export, reset and delete preferences.</p></li></ol>
         <div class="horizon reveal"><div><strong>The longer-term ambition: a shared platform.</strong><p>Turn what works in early products into a framework that more teams can use.</p></div><span class="pill">Future direction</span></div>
-        <a class="text-link" style="margin-top:28px" href="https://github.com/OskarSol/illuna/blob/main/docs/07-roadmap.md" target="_blank" rel="noopener noreferrer">Read the public roadmap <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+        <a class="text-link" href="{{ route('docs.show', 'roadmap') }}">Read the roadmap <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
-    <section class="section wrap" aria-labelledby="business-title">
-      <div class="section-head reveal"><div><p class="eyebrow">A business built around the platform</p><h2 id="business-title">An open foundation.<br>A platform opportunity.</h2></div><p>Share the ideas. Make them useful. Explore commercial services that help more teams bring personal experiences to their products.</p></div>
-      <div class="business-grid reveal"><article class="business-card"><p class="eyebrow neutral">Open to explore</p><h3>Ideas people can build on.</h3><ul class="business-list"><li>Concepts &amp; principles</li><li>Reference architecture</li><li>Example scenarios</li><li>Experimental interfaces</li><li>Public SDK interface concepts</li><li>Garden planner experiment</li></ul><p class="meta">Public concepts, examples and experimental interfaces. SDK ideas are still exploratory.</p></article><article class="business-card commercial"><p class="eyebrow">Commercial direction</p><h3>A path to scale.</h3><ul class="business-list"><li>Proprietary framework core</li><li>Hosted personalization</li><li>Production backend services</li><li>Advanced adaptation logic</li><li>Enterprise tooling</li><li>Product intelligence</li></ul><p class="meta">Future commercial possibilities. The production framework core, proprietary logic and hosted services are outside the public repository.</p></article></div>
-      <p class="revenue-title">Potential revenue streams</p><div class="revenue-options reveal"><article><h3>Developer subscriptions</h3><p>Framework access, integrations and developer tooling.</p></article><article><h3>Usage-based services</h3><p>Hosted intent and personalization processing.</p></article><article><h3>Premium platform tooling</h3><p>Governance, observability and adaptation analytics.</p></article></div>
-    </section>
 
-    <section class="closing" id="contact" aria-labelledby="contact-title">
-      <div class="wrap reveal"><p class="eyebrow">A more personal future</p><h2 id="contact-title">The future of software<br>won’t be <span>one-size-fits-all.</span></h2><p class="lead">Illuna is building the adaptive layer between people and software.</p><div class="actions"><a class="button primary" id="contact-cta" href="#contact-details">Let’s build what comes next.<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div><a class="text-link" href="https://github.com/OskarSol/illuna/blob/main/docs/03-reference-architecture.md" target="_blank" rel="noopener noreferrer">Explore the architecture on GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a><p class="meta" id="contact-details">Investor contact details coming soon. <a class="text-link" href="https://github.com/OskarSol" target="_blank" rel="noopener noreferrer">Oskar on GitHub <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a></p></div>
+
+    <section class="closing" id="learn-more" aria-labelledby="learn-more-title">
+      <div class="wrap reveal"><p class="eyebrow">Get to know Illuna</p><h2 id="learn-more-title">Understand the idea.<br><span>Explore the details.</span></h2><p class="lead">See how intent, context and product rules work together to create more personal software.</p><div class="actions"><a class="button primary" href="{{ route('docs.index') }}">Explore the documentation<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="button" href="#demo">Try the interactive demo</a></div><p class="meta">Currently in prototyping. The documentation describes concepts, patterns and the planned architecture.</p></div>
     </section>
   </main>
-  <footer class="site-footer"><div class="wrap"><div class="footer-row"><a class="brand" href="#top" aria-label="Illuna home"><svg class="brand-mark" aria-hidden="true"><use href="#i-mark"/></svg>illuna</a><p class="small">Software, more personal.</p><div class="footer-links"><a href="#vision">Vision</a><a href="#roadmap">Roadmap</a><a href="https://github.com/OskarSol/illuna" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="sr-only"> (opens in a new tab)</span></a></div></div><p class="footer-note">Based on Illuna’s public concepts, reference architecture and prototyping work. Future capabilities and business models are directional. Public repository content is Apache-2.0 licensed; Illuna branding is excluded from that license.</p></div></footer>
-  <dialog id="contact-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"><button class="dialog-close" id="dialog-close" type="button" autofocus>Close</button><p class="eyebrow" style="margin-top:22px">Investor inquiries</p><h2 id="dialog-title">Let’s start a conversation.</h2><p id="dialog-description">A direct investor contact link will be added here. For now, find Oskar and follow the project on GitHub.</p><a class="button primary dialog-link" href="https://github.com/OskarSol" target="_blank" rel="noopener noreferrer">Oskar on GitHub<svg class="icon" aria-hidden="true"><use href="#i-up"/></svg><span class="sr-only"> (opens in a new tab)</span></a></dialog>
-  <noscript><p class="wrap small" style="padding-bottom:24px">Enable JavaScript to combine themes, voices, languages and comfort preferences, and try undo. The default examples and full project narrative are available above.</p></noscript>
+  <footer class="site-footer"><div class="wrap"><div class="footer-row"><a class="brand" href="#top" aria-label="Illuna home"><svg class="brand-mark" aria-hidden="true"><use href="#i-mark"/></svg>illuna</a><p class="small">Software, more personal.</p><div class="footer-links"><a href="#vision">Vision</a><a href="#roadmap">Roadmap</a><a href="{{ route('docs.index') }}">Documentation</a></div></div><p class="footer-note">Illuna is in the prototyping phase. Explore the product vision, try the interactive examples and learn how controlled adaptation works.</p></div></footer>
+  <noscript><p class="wrap small" style="padding-bottom:24px">Enable JavaScript to combine themes, voices, languages and comfort preferences, and try undo. The default examples and product information are available above.</p></noscript>
   <script src="{{ asset('assets/landing.js') }}" defer></script>
 </body>
 </html>
