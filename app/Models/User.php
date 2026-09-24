@@ -17,7 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    protected $attributes = ['plan' => 'beta', 'tokens_used' => 0];
+    protected $attributes = ['plan' => 'free', 'tokens_used' => 0];
 
     protected static function booted(): void
     {
@@ -41,15 +41,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function planDetails(): array
     {
         return config('illuna.plans.'.$this->plan, [
-            'name' => 'Not assigned', 'token_limit' => null,
+            'name' => 'Legacy plan', 'label_adaptions' => null, 'full_adaptions' => null,
         ]);
-    }
-
-    public function remainingTokens(): ?int
-    {
-        $limit = $this->planDetails()['token_limit'];
-
-        return $limit === null ? null : max(0, $limit - $this->tokens_used);
     }
 
     /**

@@ -25,7 +25,7 @@ Do not run `key:generate` again: the existing `APP_KEY` now also decrypts accoun
 | `api_key` | Laravel-encrypted personal key, readable only with the application's `APP_KEY` |
 | `api_key_hash` | Unique SHA-256 digest for future backend lookup; hidden from serialized users |
 | `api_key_created_at` | Time the current key was issued |
-| `plan` | Internal plan ID, initially `beta` |
+| `plan` | Internal plan ID; new Eloquent accounts start with `free`, existing assignments are preserved |
 | `tokens_used` | Recorded token usage for the current plan, initially zero |
 
 All new accounts receive a cryptographically random `illuna_` key with 256 bits of entropy. The migration backfills a distinct key for every existing account, assigns Beta and preserves the original account timestamps. `api_key` and `api_key_hash` are hidden from model JSON. Account forms cannot set keys, plans, timestamps or usage counters.
@@ -46,12 +46,21 @@ The request sends `x-api-key` and a JSON body containing `message`, `chat_histor
 
 ## Plans and usage
 
-Plan definitions live in `config/illuna.php`:
+Plan definitions live in `config/illuna.php` and are shared by the landing page, dashboard and billing page:
 
-- **Beta:** free during Beta, 1,000,000 tokens total allowance. No monthly reset and no automatic paid overage are implemented.
-- **Usage-based:** €10 per 1,000,000 tokens, displayed as **Coming soon**. It cannot be booked and does not trigger a payment.
+- **Free:** €0/month, 1,000 Label Adaptions/month for translations, language and tone (text labels only).
+- **Beta:** €9.90/month, 500 Full Adaptions/month plus the 1,000 Label Adaptions from Free. Full Adaptions cover design, layout, accessibility, labels, themes, icons and visibility.
+- **Additional Adaptions:** €10 per bundle of 1,000 Full Adaptions for Beta, not a separate subscription.
 
-Dashboard and billing share the same usage component and account counter. Remaining allowance is floored at zero; the progress bar stops at 100% while the actual recorded count stays visible. There is no usage collector, automatic limit enforcement, plan switching, checkout, payment collection or invoice generation yet. These stay with the future backend/billing integration. The UI explicitly says live reporting is not connected.
+One Adaption is one UI adaptation request, potentially changing multiple elements. These are displayed prices and allowances, not an enabled billing or metering system. Paid bookings and additional bundles remain unavailable. No payments or automatic overage charges are collected. Registration still requires a closed-beta invitation.
+
+**No new database migration is required for this pricing display.** The existing string `users.plan` supports the new IDs. New accounts created through the User model default to `free`. Existing `beta` accounts retain their assignment and are not enrolled in a paid subscription. The historical migration intentionally retains its original `beta` SQL default; direct database insertions must supply `plan` explicitly. Unknown or retired plan IDs render as Legacy plan without silently changing accounts.
+
+`tokens_used` remains intact for later cost analysis. It is not converted to Adaptions or used as a monthly request balance. The portal displays included allowances and explicitly says live Adaption usage is not connected.
+
+**Before enabling live allowances or payment:** the backend needs separate Label/Full usage per account and month, atomic limit checks, request-size/output limits, plan capability enforcement and explicit bundle purchase handling. No usage collector, monthly reset, automatic limit enforcement, plan switching, checkout or invoice generation is implemented in this portal. Pricing on its own does not cap model spend.
+
+After deployment, rebuild cached config/views (`php artisan optimize:clear` then `php artisan config:cache` and `php artisan view:cache`). No additional migration is needed if the API/plan migration above is already applied.
 
 ## Verification
 

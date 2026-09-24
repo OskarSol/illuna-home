@@ -11,6 +11,10 @@
         <svg class="welcome-mark" viewBox="0 0 140 140" aria-hidden="true"><path d="M30 102V61M70 118V25M110 86V46" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/></svg>
     </section>
     <x-usage :user="auth()->user()" />
+    <section aria-labelledby="dashboard-pricing-title">
+        <div class="section-heading"><h2 id="dashboard-pricing-title">Pricing</h2></div>
+        <x-pricing :account="auth()->user()" />
+    </section>
     <section class="card account-summary">
         <div><span class="eyebrow">ACCOUNT</span><h2>All set on your side.</h2><p>{{ auth()->user()->email }}</p></div>
         <span class="badge verified">Email verified</span>

@@ -13,7 +13,7 @@ class ApiAccessTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_registration_issues_a_private_unique_key_and_assigns_beta_server_side(): void
+    public function test_registration_issues_a_private_unique_key_and_assigns_free_server_side(): void
     {
         Notification::fake();
         $this->travelTo(now()->startOfSecond());
@@ -26,7 +26,7 @@ class ApiAccessTest extends TestCase
         ])->assertRedirect('/dashboard');
 
         $user = User::firstOrFail();
-        $this->assertSame('beta', $user->plan);
+        $this->assertSame('free', $user->plan);
         $this->assertSame(0, $user->tokens_used);
         $this->assertTrue($user->created_at->equalTo(now()));
         $this->assertTrue($user->last_login_at->equalTo(now()));
@@ -107,7 +107,7 @@ class ApiAccessTest extends TestCase
         $this->assertNotSame($oldKey, $updated->api_key);
         $this->assertSame(hash('sha256', $updated->api_key), $updated->api_key_hash);
         $this->assertDatabaseMissing('users', ['api_key_hash' => $oldHash]);
-        $this->assertSame('beta', $updated->plan);
+        $this->assertSame('free', $updated->plan);
         $this->assertSame(250000, $updated->tokens_used);
         $this->assertSame($other->api_key, $other->fresh()->api_key);
         $this->assertNull(session('_old_input.current_password'));
