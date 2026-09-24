@@ -10,6 +10,7 @@
         <div><span class="badge light">Your account is ready</span><h2>Let’s make it personal.</h2><p>Explore the demos and prepare your first API integration.</p><a class="button primary" href="{{ route('api-key.show') }}">Your API access <span aria-hidden="true">↗</span></a></div>
         <svg class="welcome-mark" viewBox="0 0 140 140" aria-hidden="true"><path d="M30 102V61M70 118V25M110 86V46" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/></svg>
     </section>
+    <x-activity :usage="$usage" />
     <x-usage :user="auth()->user()" />
     <section aria-labelledby="dashboard-pricing-title">
         <div class="section-heading"><h2 id="dashboard-pricing-title">Pricing</h2></div>
