@@ -2,6 +2,10 @@
 @section('title', 'Plans & billing')
 @section('content')
     <div class="page-heading"><span class="eyebrow">ROOM TO BUILD</span><h1>A plan for your ideas<span class="accent">.</span></h1><p>Start in Beta. Explore what comes next.</p></div>
+    <section class="card billing-note" aria-labelledby="free-text-title">
+        <h2 id="free-text-title">Up to 1,000 free requests per month</h2>
+        <p>Translations and language or tone adjustments are free for up to 1,000 requests per month. This applies to text-label changes only.</p>
+    </section>
     <div class="plan-grid">
         @foreach (config('illuna.plans') as $id => $plan)
             <section class="card plan-card {{ auth()->user()->plan === $id ? 'current-plan' : '' }}" aria-labelledby="plan-{{ $id }}">
