@@ -10,6 +10,7 @@
             <p class="lead">Your style. Your language. Your way of moving through the world. Illuna imagines software that adapts to all of it.</p>
             <div class="actions"><a class="button primary" href="{{ route('demo') }}#demo">Explore Illuna<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="button" href="{{ route('docs.index') }}">Read the documentation<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
             <p class="stage-note">Now prototyping. Turning the vision into working experiences.</p>
+            <p class="stage-note"><strong>Up to 1,000 free requests per month.</strong> After registration, use translations and language or tone adjustments for text labels only. <a class="text-link" href="{{ route('register') }}">Create your account <span aria-hidden="true">↗</span></a></p>
           </div>
           <figure class="hero-visual" id="hero-visual">
             <div class="visual-label"><span>One app. So many ways to be you.</span><span class="index">Explore the possibilities</span></div>
