@@ -7,11 +7,11 @@
 .code-heading h3 span { display:block; color:#ada6c1; font-size:.7rem; margin-top:5px; font-weight:400; }
 .code-copy { border:1px solid #5e566e; color:#ddd5ee; background:#373142; border-radius:8px; padding:7px 10px; font:inherit; font-size:.7rem; cursor:pointer; }
 .code-copy:hover { background:#463c58; }
-.code-example pre { margin:0; overflow:auto; padding:23px 20px; color:#d5c8ef; font-size:.75rem; line-height:1.8; tab-size:4; }
+.code-example pre { max-height:36rem; margin:0; overflow:auto; padding:23px 20px; color:#d5c8ef; font-size:.75rem; line-height:1.8; tab-size:4; }
 .code-example code { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; }
 .code-example pre:focus-visible,.code-copy:focus-visible { outline:3px solid #a482ee; outline-offset:-4px; }
 .code-note { font-size:.78rem; color:#777080; margin-top:17px; line-height:1.7; }
 .code-copy-status { font-size:.8rem; color:#675185; min-height:1.6em; margin-top:8px; }
 [hidden] { display:none !important; }
-@media (max-width:1100px) { .portal-main .code-example-grid { grid-template-columns:minmax(0,1fr); } }
+@media (max-width:1100px) { .portal-main .code-example-grid,.docs-main .code-example-grid { grid-template-columns:minmax(0,1fr); } }
 @media (max-width:760px) { .code-example-grid { grid-template-columns:minmax(0,1fr); } }
