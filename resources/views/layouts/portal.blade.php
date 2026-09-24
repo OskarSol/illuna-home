@@ -8,6 +8,7 @@
     <title>@yield('title') · Illuna</title>
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ asset('assets/portal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/pricing.css') }}">
     @stack('styles')
 </head>
 <body class="portal-body">

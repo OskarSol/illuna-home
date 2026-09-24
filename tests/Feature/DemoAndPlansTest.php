@@ -52,26 +52,35 @@ class DemoAndPlansTest extends TestCase
         $this->assertSame('false', $result['updates'][4]['new_value']);
     }
 
-    public function test_usage_comes_from_the_account_and_paid_bookings_are_unavailable(): void
+    public function test_pricing_is_consistent_and_paid_bookings_are_unavailable(): void
     {
+        $this->get('/')->assertOk()->assertSee('id="pricing"', false)
+            ->assertSee('1,000 Label Adaptions / month')->assertSee('500 Full Adaptions / month')
+            ->assertSee('€9.90')->assertSee('+1,000 Full Adaptions')->assertSee('€10 per bundle')
+            ->assertDontSee('Up to 1,000 free requests per month.');
+
         $user = User::factory()->create(['tokens_used' => 250000]);
-        $this->actingAs($user)->get('/dashboard')->assertOk()->assertSee('250,000')->assertSee('750,000')
-            ->assertSee('Beta')->assertSee('25.0%')->assertSee('Not connected yet');
-        $this->get('/billing')->assertOk()->assertSee('1,000,000')->assertSee('€10')
-            ->assertSee('Coming soon')->assertSee('No payments are collected')->assertSee('Current plan');
-        $this->get('/demo')->assertOk();
+        $this->assertSame('free', $user->plan);
+        foreach (['/dashboard', '/billing'] as $url) {
+            $this->actingAs($user)->get($url)->assertOk()->assertSee('Current plan')
+                ->assertSee('€9.90')->assertSee('€10 per bundle')->assertSee('Not connected yet')
+                ->assertDontSee('Available tokens')->assertDontSee('Usage-based')
+                ->assertDontSee('250,000')->assertDontSee('750,000');
+        }
+        $this->post('/billing', ['plan' => 'beta'])->assertStatus(405);
+        $this->assertSame('free', $user->fresh()->plan);
         $this->assertSame(250000, $user->fresh()->tokens_used);
-        $this->post('/billing', ['plan' => 'usage'])->assertStatus(405);
-        $this->assertSame('beta', $user->fresh()->plan);
     }
 
-    public function test_usage_display_handles_exhausted_and_unlimited_plans(): void
+    public function test_existing_beta_and_legacy_accounts_render_without_reassignment(): void
     {
-        $user = User::factory()->create(['tokens_used' => 1250000]);
-        $this->assertSame(0, $user->remainingTokens());
-        $this->actingAs($user)->get('/billing')->assertOk()->assertSee('100.0%')->assertDontSee('125.0%');
+        $user = User::factory()->create(['plan' => 'beta', 'tokens_used' => 1250000]);
+        $this->actingAs($user)->get('/billing')->assertOk()->assertSee('500 Full Adaptions / month')
+            ->assertSee('Existing Beta access does not become a paid subscription automatically.');
+        $this->assertSame('beta', $user->fresh()->plan);
+        $this->assertSame(1250000, $user->fresh()->tokens_used);
         $user->forceFill(['plan' => 'usage'])->save();
-        $this->assertNull($user->remainingTokens());
-        $this->get('/dashboard')->assertOk()->assertSee('Usage-based')->assertSee('No fixed allowance');
+        $this->get('/dashboard')->assertOk()->assertSee('Legacy plan');
+        $this->assertSame('usage', $user->fresh()->plan);
     }
 }

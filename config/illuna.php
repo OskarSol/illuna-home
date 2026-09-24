@@ -8,17 +8,27 @@ return [
     // Public examples always use a placeholder.
     'api_url' => env('ILLUNA_API_URL'),
     'plans' => [
+        'free' => [
+            'name' => 'Free',
+            'monthly_price_cents' => 0,
+            'label_adaptions' => 1_000,
+            'full_adaptions' => 0,
+            'description' => 'Find the right words for every user.',
+            'features' => ['Translations, language and tone', 'Text-label changes only', 'Your own API key'],
+        ],
         'beta' => [
             'name' => 'Beta',
-            'token_limit' => 1_000_000,
-            'price_per_million_cents' => 0,
-            'available' => true,
+            'monthly_price_cents' => 990,
+            'label_adaptions' => 1_000,
+            'full_adaptions' => 500,
+            'description' => 'Make the whole experience feel personal.',
+            'features' => ['Everything in Free', 'Design, layout, themes and icons', 'Accessibility, visibility and labels'],
         ],
-        'usage' => [
-            'name' => 'Usage-based',
-            'token_limit' => null,
-            'price_per_million_cents' => 1_000,
-            'available' => false,
-        ],
+    ],
+    // Displayed pricing only; checkout and usage enforcement are not connected.
+    'additional_adaptions' => [
+        'full_adaptions' => 1_000,
+        'price_cents' => 1_000,
+        'requires_plan' => 'beta',
     ],
 ];

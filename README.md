@@ -20,7 +20,7 @@ Laravel 13 + Blade + Laravel Fortify, designed for PHP 8.3 and MySQL 8.4 on shar
 - Password changes, invalidation of other database sessions and remember tokens.
 - Account-specific pages, escaped user content, CSRF protection and non-cacheable responses.
 - Personal API access page with encrypted unique keys, current-password-protected renewal and account-specific cURL examples.
-- Registration and last-sign-in timestamps; Beta plan with 1 million total tokens and recorded usage. Usage-based billing (€10 per million tokens) is shown as coming soon. **Live API, usage collection and payment processing are not connected.**
+- Registration and last-sign-in timestamps; Free (1,000 Label Adaptions/month), Beta (€9.90/month for 500 Full Adaptions plus Free labels), and Beta add-on bundles (€10/1,000 Full Adaptions). Paid bookings are coming soon. **Live API, usage collection and payment processing are not connected.**
 
 The Laravel application renders the Blade landing page. Make future landing-page changes in `resources/views/landing.blade.php`. Do not point a Laravel deployment at the repository root.
 
@@ -61,11 +61,11 @@ The test suite uses an isolated in-memory SQLite database by default. GitHub Act
 | `/login` | Login |
 | `/forgot-password` | Request a reset link |
 | `/email/verify` | Signed-in account awaiting verification |
-| `/dashboard` | Verified account; recorded usage, plan and account dates |
+| `/dashboard` | Verified account; plan allowances, pricing and account dates |
 | `/api-key` | Verified account; personal API key and REST examples |
 | `/api-key/rotate` | POST only; renew own key with current password |
 | `/settings` | Verified account; profile and password forms |
-| `/billing` | Verified account; Beta allowance and future usage-based plan |
+| `/billing` | Verified account; Free/Beta pricing and additional Adaption bundles |
 | `/up` | Framework health check; not a complete database/SMTP readiness check |
 
 ## Configuration

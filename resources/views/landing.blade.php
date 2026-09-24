@@ -1,4 +1,7 @@
 @extends('layouts.site')
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/pricing.css') }}">
+@endpush
 @section('content')
 
     <section class="hero" id="top" aria-labelledby="hero-title">
@@ -10,7 +13,6 @@
             <p class="lead">Your style. Your language. Your way of moving through the world. Illuna imagines software that adapts to all of it.</p>
             <div class="actions"><a class="button primary" href="{{ route('demo') }}#demo">Explore Illuna<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="button" href="{{ route('docs.index') }}">Read the documentation<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
             <p class="stage-note">Now prototyping. Turning the vision into working experiences.</p>
-            <p class="stage-note"><strong>Up to 1,000 free requests per month.</strong> After registration, use translations and language or tone adjustments for text labels only. <a class="text-link" href="{{ route('register') }}">Create your account <span aria-hidden="true">↗</span></a></p>
           </div>
           <figure class="hero-visual" id="hero-visual">
             <div class="visual-label"><span>One app. So many ways to be you.</span><span class="index">Explore the possibilities</span></div>
@@ -120,6 +122,11 @@
     </section>
 
 
+
+    <section class="section wrap" id="pricing" aria-labelledby="pricing-title">
+      <div class="section-head"><div><p class="eyebrow">Pricing</p><h2 id="pricing-title">Start with words.<br>Make it yours.</h2></div><p>Free Label Adaptions to get started. Full Adaptions when you want to go further.</p></div>
+      <x-pricing />
+    </section>
 
     <section class="closing" id="learn-more" aria-labelledby="learn-more-title">
       <div class="wrap reveal"><p class="eyebrow">Get to know Illuna</p><h2 id="learn-more-title">Understand the idea.<br><span>Explore the details.</span></h2><p class="lead">See how intent, context and product rules work together to create more personal software.</p><div class="actions"><a class="button primary" href="{{ route('docs.index') }}">Explore the documentation<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="button" href="{{ route('demo') }}#demo">Try the interactive demo</a></div><p class="meta">Currently in prototyping. The documentation describes concepts, patterns and the planned architecture.</p></div>
