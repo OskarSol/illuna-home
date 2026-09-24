@@ -10,6 +10,7 @@
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ asset('assets/portal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/documentation.css') }}">
+    @stack('styles')
 </head>
 <body class="docs-body">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -40,5 +41,6 @@
         @endisset
     </div>
     <footer class="docs-footer">© {{ date('Y') }} Illuna <span>Software, more personal.</span></footer>
+    @stack('scripts')
 </body>
 </html>

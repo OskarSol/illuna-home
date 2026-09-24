@@ -38,9 +38,11 @@ The first interactive demo moved from the landing page to `/demo`. Links from th
 
 The second demo changes the same garden tasks between cards with a sidebar, a compact full-width table and a guided single-task flow. Mode switching, previous/next, undo and reset are local to the page. No model calls are made and no tokens are counted.
 
-Public and personal examples share `resources/views/components/api-example.blade.php`. The public example always contains `YOUR_API_KEY`; the private example uses the signed-in account's current key. Both explicitly label the endpoint, request, response and token counts as illustrative. The proposed `/v1/adapt` contract is not an existing backend endpoint.
+Public demo, documentation and personal examples share `resources/views/components/api-example.blade.php`. Public examples always contain `https://api.example.com/v1/adapt` and `YOUR_API_KEY`, even for signed-in visitors and when a real endpoint is configured. Only the protected API access page passes the configured endpoint and the signed-in account's key to the component.
 
-`ILLUNA_API_URL` optionally supplies the **full HTTPS endpoint URL** shown in examples. Until the actual integration contract is agreed, the example defaults to the reserved placeholder `https://api.example.com/v1/adapt`. Setting this variable only changes the displayed endpoint. Align the request/response example with the real API when it is connected, then clear and rebuild configuration caches. Never send real keys to the placeholder endpoint.
+The request sends `x-api-key` and a JSON body containing `message`, `chat_history`, five `ui_elements`, minimal `system_context` and dummy identifiers. Do not send the n8n input wrapper (`headers`, `body`, `webhookUrl`, etc.). The example response preserves the supplied array / `output` / `content` / `text` structure, with a `message` and `updates` (`id`, `field: "Value"`, `new_value`). Nonessential metadata is omitted; there are no invented token counts. Visibility remains a string, matching the current prototype.
+
+`ILLUNA_API_URL` supplies the **full HTTPS endpoint URL** shown only in the account area. Set this value in the server `.env`; the real URL is intentionally absent from source control. Until it is set, the personal request is hidden. For a `/webhook-test/` URL, n8n must be listening for a test request; the account page shows a short reminder. Use the active workflow's endpoint for a live integration. If an existing `.env` explicitly sets the old placeholder URL, replace that value. Clear and rebuild configuration caches after changing it. These pages only display examples and never send requests or change backend authentication.
 
 ## Plans and usage
 

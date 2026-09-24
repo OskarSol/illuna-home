@@ -13,7 +13,7 @@
         <nav class="demo-jumps" aria-label="Demo sections">
             <a href="#demo">01 · Make it personal</a>
             <a href="#layout-demo">02 · Change the layout</a>
-            <a href="#rest-example">03 · See the API concept</a>
+            <a href="#rest-example">03 · See the REST example</a>
         </nav>
         <p class="small">Prepared, interactive examples. No live AI calls or tokens used.</p>
     </section>
@@ -21,9 +21,10 @@
     @include('partials.layout-demo')
     <section class="section api-demo" id="rest-example" aria-labelledby="rest-title">
         <div class="wrap">
-            <div class="section-head"><div><p class="eyebrow">03 / FROM INTENT TO INTERFACE</p><h2 id="rest-title">A request in.<br>An adaptation back.</h2></div><p>Your backend sends intent and context. Your app applies the returned changes within its own rules.</p></div>
+            <div class="section-head"><div><p class="eyebrow">03 / FROM INTENT TO INTERFACE</p><h2 id="rest-title">A request in.<br>An adaptation back.</h2></div><p>Your backend sends a message and the current UI values. Your app applies the returned changes within its own rules.</p></div>
+            <p class="code-note">The URL and API key below are placeholders. Find your configured endpoint and personal key in your account.</p>
             <x-api-example />
-            <div class="actions"><a class="button primary" href="{{ route('api-key.show') }}">Get your personal REST example <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="text-link" href="{{ route('docs.show', 'adaptive-ui-patterns') }}">Explore the UI patterns →</a></div>
+            <div class="actions"><a class="button primary" href="{{ route('api-key.show') }}">Get your personal REST example <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="text-link" href="{{ route('docs.show', 'examples-and-implementation') }}">Read the integration guide →</a></div>
         </div>
     </section>
     <noscript><p class="wrap small">Enable JavaScript to switch demo settings and layouts. The default previews and REST examples remain available.</p></noscript>

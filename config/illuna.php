@@ -4,8 +4,9 @@ return [
     'registration_enabled' => (bool) env('ILLUNA_REGISTRATION_ENABLED', false),
     'beta_invite_code' => env('ILLUNA_BETA_INVITE_CODE'),
     'noindex' => (bool) env('ILLUNA_NOINDEX', true),
-    // Full endpoint for the illustrative REST examples; no browser request is sent.
-    'api_url' => env('ILLUNA_API_URL', 'https://api.example.com/v1/adapt'),
+    // Configure the account-only endpoint on the server; never publish it in source.
+    // Public examples always use a placeholder.
+    'api_url' => env('ILLUNA_API_URL'),
     'plans' => [
         'beta' => [
             'name' => 'Beta',

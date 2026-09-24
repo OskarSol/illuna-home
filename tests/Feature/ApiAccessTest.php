@@ -70,14 +70,24 @@ class ApiAccessTest extends TestCase
 
     public function test_only_the_signed_in_users_key_appears_and_responses_are_not_cached(): void
     {
+        $endpoint = 'https://private-api.example.test/webhook-test/demo';
+        config(['illuna.api_url' => $endpoint]);
         $user = User::factory()->create();
         $other = User::factory()->create();
         $response = $this->actingAs($user)->get('/api-key?user_id='.$other->id)
-            ->assertOk()->assertSee($user->api_key)->assertSee('Authorization: Bearer '.$user->api_key)
-            ->assertDontSee($other->api_key)->assertSee('API contract preview.');
+            ->assertOk()->assertSee($user->api_key)->assertSee('x-api-key: '.$user->api_key)
+            ->assertDontSee($other->api_key)->assertSee('A small REST example.')
+            ->assertSee($endpoint)->assertSee('This is a test webhook.');
         $this->assertStringContainsString('no-store', $response->headers->get('Cache-Control'));
-        $this->get('/demo')->assertOk()->assertSee('YOUR_API_KEY')->assertDontSee($user->api_key);
+        foreach (['/demo', '/docs/examples-and-implementation'] as $path) {
+            $this->get($path)->assertOk()->assertSee('YOUR_API_KEY')
+                ->assertSee('https://api.example.com/v1/adapt')
+                ->assertDontSee($user->api_key)->assertDontSee($other->api_key)->assertDontSee($endpoint);
+        }
         $this->get('/dashboard')->assertOk()->assertDontSee($user->api_key);
+        config(['illuna.api_url' => null]);
+        $this->get('/api-key')->assertOk()->assertSee('Your API endpoint is being prepared.')
+            ->assertDontSee('id="personal-request"', false);
     }
 
     public function test_rotation_requires_current_password_and_replaces_only_own_key(): void

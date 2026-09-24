@@ -14,8 +14,15 @@
     </section>
     <section class="card api-key-card" aria-labelledby="personal-example-title">
         <h2 id="personal-example-title">Your REST example</h2>
-        <p>The request includes your current key. After renewing it, copy the updated example here.</p>
-        <details class="personal-example"><summary>Show request with my API key and example response</summary><x-api-example :api-key="$user->api_key" id-prefix="personal" /></details>
+        @if (config('illuna.api_url'))
+            <p>The request includes your current key and the configured API URL. The payload uses dummy values; replace the app, user and session IDs for your integration. After renewing your key, copy the updated example here.</p>
+            @if (str_contains(config('illuna.api_url'), '/webhook-test/'))
+                <p class="small">This is a test webhook. Start the test listener in n8n before sending a request.</p>
+            @endif
+            <details class="personal-example"><summary>Show request with my API key and example response</summary><x-api-example :api-key="$user->api_key" :endpoint="config('illuna.api_url')" id-prefix="personal" /></details>
+        @else
+            <p>Your API endpoint is being prepared. Your personal REST example will appear here once it is available.</p>
+        @endif
     </section>
     <section class="card settings-card" aria-labelledby="rotate-title">
         <div class="settings-description"><h2 id="rotate-title">Renew API key</h2><p>This replaces your current key immediately. Update your integrations with the new key. Confirm with your account password.</p></div>
